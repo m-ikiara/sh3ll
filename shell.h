@@ -18,4 +18,7 @@
 /* Declare the environ variable */
 extern char **environ;
 
+/* Prototypes */
+void sig_hand(int);
+
 #endif

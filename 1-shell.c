@@ -12,6 +12,7 @@
 
 int main(int ac, char *av[])
 {
+	signal(SIGINT, sig_hand);
 	while (1)
 	{
 		char *cmd;

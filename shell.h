@@ -15,4 +15,7 @@
 #include <string.h>
 #include <errno.h>
 
+/* Declare the environ variable */
+extern char **environ;
+
 #endif

@@ -2,6 +2,8 @@
 #define SIMPLE_H
 
 #define _GNU_SOURCE
+#define BUFFSIZE 64
+#define DELIM " \n\t"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -20,5 +22,8 @@ extern char **environ;
 
 /* Prototypes */
 void sig_hand(int);
+int prompt(void);
+char *read_cmd(void);
+char **split_cmd(char *);
 
 #endif

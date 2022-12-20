@@ -11,15 +11,10 @@
 
 void sig_hand(int sig)
 {
-	if (EOF)
-	{
-		printf("\nExit\nSession terminated\n");
-		exit(EXIT_SUCCESS);
-	}
 	if (sig == SIGINT)
 	{
-		printf("\nExit\nSession interrupted\n");
-		exit(EXIT_SUCCESS);
+		printf("\n");
+		write(STDOUT_FILENO, "\\('O')/ ", 2);
+		fflush(stdout);
 	}
-	exit(0);
 }

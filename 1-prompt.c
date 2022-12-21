@@ -1,33 +1,50 @@
 #include "shell.h"
 
 /**
- * _start - Function
- * @args: Argument vector
+ * h_start - Function
+ * @argv: Argument vector
  *
  * Description: Launches the shell program.
  * Return: EXIT_SUCCESS.
- * On error, 1.
+ * On error, EXIT_FAILURE.
  */
 
-int _start(char **args)
+int h_start(char **argv)
 {
 	pid_t proc;
 
+	signal(SIGINT, sig_hand);
 	proc = fork();
 	/* Edge case: fork() fails */
-	if (fork < 0)
+	if (proc < 0)
 		perror("Error");
 	else if (proc == 0)
 	{
 		/* Handle execution and edge case outright */
-		if (execve(args[0], args, environ) == -1)
+		if (execve(argv[0], argv, environ) == -1)
 			perror("Error");
 		exit(EXIT_FAILURE);
-	}
-	else
+	} else
 		wait(NULL);
 
 	return (1);
+}
+
+/**
+ * exe_cmd - Function
+ * @argv: Argument vector
+ *
+ * Description: Executes the commands given.
+ * Return: h_start(argv).
+ * On error, stderr.
+ */
+
+int exe_cmd(char **argv)
+{
+	if (argv[0] == NULL)
+		return (1);
+
+	return (h_start(argv));
 }
 
 /**
@@ -41,17 +58,17 @@ int _start(char **args)
 
 int prompt(void)
 {
-	char *cmd, **args;
+	char *cmd, **argv;
 	int status;
 
 	do {
 		printf("abby@brian:-$ ");
 		cmd = read_cmd();
-		args = split_cmd(cmd);
-		status = exe_cmd(args);
+		argv = split_cmd(cmd);
+		status = exe_cmd(argv);
 
 		free(cmd);
-		free(args);
+		free(argv);
 	} while (status);
 
 	return (0);
@@ -70,6 +87,7 @@ int prompt(void)
 int main(int ac, char **av)
 {
 	/* Simplified and robust */
+	(void)ac, (void)av;
 	prompt();
 
 	return (EXIT_SUCCESS);

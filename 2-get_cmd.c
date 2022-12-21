@@ -18,7 +18,10 @@ char *read_cmd(void)
 	{
 		/* Handle EOF and error while getting command */
 		if (feof(stdin))
+		{
+			printf("\n");
 			exit(EXIT_SUCCESS);
+		}
 		else
 		{
 			perror("read_cmd");

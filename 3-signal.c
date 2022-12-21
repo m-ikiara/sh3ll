@@ -14,7 +14,7 @@ void sig_hand(int sig)
 	if (sig == SIGINT)
 	{
 		printf("\n");
-		write(STDOUT_FILENO, "\\('O')/ ", 2);
+		write(STDOUT_FILENO, "abby@brian:-$ ", 15);
 		fflush(stdout);
 	}
 }

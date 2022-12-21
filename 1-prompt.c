@@ -62,7 +62,8 @@ int prompt(void)
 	int status;
 
 	do {
-		printf("abby@brian:-$ ");
+		if (isatty(STDIN_FILENO))
+			printf("abby@brian:-$ ");
 		cmd = read_cmd();
 		argv = split_cmd(cmd);
 		status = exe_cmd(argv);

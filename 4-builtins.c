@@ -37,5 +37,6 @@ int h_cd(char **argv)
 
 int h_exit(char **argv)
 {
+	(void)argv;
 	return (0);
 }

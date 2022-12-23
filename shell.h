@@ -17,7 +17,7 @@
 #include <string.h>
 #include <errno.h>
 
-/* Declare the environ variable */
+/* Declare environ */
 extern char **environ;
 
 /* Prototypes */

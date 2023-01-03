@@ -12,9 +12,10 @@ char *read_cmd(void)
 {
 	char *cmd = NULL;
 	size_t n = 0;
+	int len = getline(&cmd, &n, stdin);
 
 	/* Handle edge case and getline in one fell swoop */
-	if (getline(&cmd, &n, stdin) == -1)
+	if (len == -1)
 	{
 		/* Handle EOF and error while getting command */
 		if (feof(stdin))
@@ -27,7 +28,10 @@ char *read_cmd(void)
 			perror("read_cmd");
 			exit(EXIT_FAILURE);
 		}
+		free(cmd);
 	}
+	if (cmd[len - 1] == '\n')
+		cmd[len - 1] = '\0';
 
 	return (cmd);
 }
@@ -45,24 +49,23 @@ char *read_cmd(void)
 char **split_cmd(char *cmd)
 {
 	int n = BUFFSIZE, i = 0;
-	char *tok, **cmd_tok = malloc(sizeof(char *) * n);
+	char *tok = strtok(cmd, DELIM), **cmd_tok = malloc(sizeof(char) * n);
 
-	/* Edge case I */
-	if (cmd_tok == NULL)
+	/* Edge case: cmd_tok is NULL */
+	if (!cmd_tok)
 	{
-		perror("Error");
+		perror("hsh");
 		exit(EXIT_FAILURE);
 	}
-	tok = strtok(cmd, DELIM);
-	/* loop through cmd returning each token */
-	while (tok)
+	/* Traverse tok */
+	while (tok != NULL)
 	{
 		cmd_tok[i] = tok;
 		tok = strtok(NULL, DELIM);
 		i++;
 	}
+	/* Change value at end of cmd_tok to NULL */
 	cmd_tok[i] = NULL;
 
-	/* The parsed command is ready for execution */
 	return (cmd_tok);
 }

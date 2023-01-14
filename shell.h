@@ -1,42 +1,33 @@
 #ifndef SHELL_H
 #define SHELL_H
 
-#define _GNU_SOURCE
-#define BUFFSIZE 1024
-#define DELIM " \n\t"
-
+#include <stdio.h>
+#include <unistd.h>
+#include <string.h>
+#include <wait.h>
+#include <sys/types.h>
+#include <sys/stat.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
-#include <sys/stat.h>
-#include <sys/wait.h>
-#include <sys/types.h>
-#include <stddef.h>
-#include <signal.h>
 #include <string.h>
 #include <errno.h>
+#include <signal.h>
 
-/* Declare environ */
+/* Environ global variable */
 extern char **environ;
-
-/* For the signal */
-void sig_hand(int);
-
-/* For the strings */
-int _strlen(char *);
+/* Function Prototypes */
+char *readline(void);
+char **splitline(char *);
+int execute(char **);
+char *get_path(char *);
 char *_strcat(char *, char *);
+char **tokenize_env(char *);
 int _strcmp(char *, char *);
-int _strncmp(char *, char *, int);
-
-/* For the commands */
-char *read_cmd(void);
-char **split_cmd(char *);
-int exe_cmd(char **);
-
-/* To handle matters of path */
-char *_path(char *);
+void sig_handler(int);
+int _putchar(char);
 char *_getenv(char *);
-char **path_tok(char *);
 void _printenv(void);
+int _strlen(char *);
+int _strncmp(char *, char *, int n);
 
-#endif
+#endif /* SHELL_H */
